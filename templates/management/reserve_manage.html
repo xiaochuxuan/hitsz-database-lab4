@@ -1,0 +1,58 @@
+{% extends 'management/base.html' %}
+
+{% block main %}
+    <h1></h1><br>
+
+    <div class="col-md-2"></div>
+    <div class="col-md-9">
+        <table class="table table-striped" style="background-color: #a6e1ec">
+            <thead>
+                <tr>
+                    <th>实验室名称</th>
+                    <th>预约日期</th>
+                    <th>预约时间段</th>
+                    <th>预约目的</th>
+                    <th>是否通过</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in post_list %}
+                    <tr class="post post-{{ post.pk }}">
+                        <td>{{ post.laboratory_name }}</td>
+                        <td>{{ post.reserve_date }}</td>
+                        <td>{{ post.reserve_time }}</td>
+                        <td>{{ post.purpose }}</td>
+                        <td>
+                            <a href="{% url "pass_reservation" post.record_id %}">
+                                <strong style="color: #5bc0de">通过</strong>
+                            </a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <div class="no-post"></div>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- 分页 -->
+        <div class="pagination-simple">
+            {% if post_list.has_previous %}
+                <a href="?page={{ post_list.previous_page_number }}">上一页</a>
+            {% endif %}
+
+            <span class="current">
+                第 {{ post_list.number }} 页 / 共 {{ post_list.paginator.num_pages }} 页
+            </span>
+
+            {% if post_list.has_next %}
+                <a href="?page={{ post_list.next_page_number }}">下一页</a>
+            {% endif %}
+        </div>
+
+    </div>
+
+
+
+    <div class="col-md-1"></div>
+
+{% endblock main%}

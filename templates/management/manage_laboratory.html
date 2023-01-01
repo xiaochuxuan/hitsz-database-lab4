@@ -1,0 +1,72 @@
+{% extends 'management/base.html' %}
+
+{% block main %}
+    <div class="col-md-4">
+        <img src="../../static/img/2.png" width="250" height="400">
+        <!-- 分页 -->
+        <div class="pagination-simple">
+            {% if post_list.has_previous %}
+                <a href="?page={{ post_list.previous_page_number }}">上一页</a>
+            {% endif %}
+
+            <span class="current">
+                第 {{ post_list.number }} 页 / 共 {{ post_list.paginator.num_pages }} 页
+            </span>
+
+            {% if post_list.has_next %}
+                <a href="?page={{ post_list.next_page_number }}">下一页</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        {% for post in post_list %}
+            <div class="panel panel-default" style="margin-top: 20px;padding: 20px">
+                <h3 style="text-align: center">
+                    <strong>{{ post.laboratory_name }}</strong>
+                </h3>
+                <p><strong>实验室id: </strong> {{ post.laboratory_id }} </p>
+                <p><strong>位置: </strong> {{ post.area }} </p>
+                <p><strong>楼层: </strong> {{ post.location }} </p>
+                <p><strong>台套数: </strong> {{ post.comp_sets }} </p>
+                <p>
+                    <strong>可用软件: </strong>
+                    {% for software in post.software_list %}
+                        {{ software }}&nbsp;
+                    {% endfor %}
+                </p>
+                <div class="row" style="margin-top: 10px">
+                    <div class="col-md-6">
+                        <div class="dropdown" style="position: relative;margin-left: 100px">
+                            <button type="button" class="btn dropdown-toggle" id="dropdownMenu" data-toggle="dropdown">
+                                <a href="#">添加软件</a>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                {% for software_add in post.software_list_add %}
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="{% url 'add_software_laboratory' post.laboratory_name software_add %}">
+                                            {{ software_add }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <button type="button" style="position:relative;margin-left: 50px;
+                                                    padding: 8px 8px;border-radius:6px; border-style: none;">
+                            <a href="{% url 'laboratory_occupancy' post.laboratory_name %}">查看使用情况</a>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        {% empty %}
+          <div class="no-post">无实验室</div>
+        {% endfor %}
+    </div>
+
+{% endblock main%}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management</title>
+</head>
+
+<body>
+    <h1>Welcome to Laboratory Management Platform home page</h1>
+    <!-- login info -->
+    {% if request.user.is_authenticated %}
+    <h2>Hello {{ request.user.username }}</h2>
+    <a href="/User/logout/"><input type="button" value="Logout" /></a>
+    {% else %}
+    <a href="/User/login/"><input type="button" value="Login"></a>
+    <a href="/User/regist/"><input type="button" value="Regist"></a>
+    {% endif %}
+</body>
+
+</html>

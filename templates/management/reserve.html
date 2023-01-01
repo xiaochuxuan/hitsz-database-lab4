@@ -1,0 +1,59 @@
+{% extends 'management/base.html' %}
+{% load crispy_forms_filters %}
+
+<!-- load crispy tags -->
+{% load crispy_forms_tags %}
+
+{% block main %}
+    <div class="col-md-2">
+
+    </div>
+
+    <div class="col-md-8">
+        <div class="management_form">
+            <form method="post" novalidate>
+                <!-- csrf token -->
+                {% csrf_token %}
+
+                <div class="management_form item">
+                    <div class="row">
+                        {{ form.build_name| as_crispy_field }}
+                    </div>
+                </div>
+
+                <div class="management_form item">
+                    <div class="row">
+                        {{ form.laboratory_name | as_crispy_field }}
+                    </div>
+                </div>
+
+                <div class="management_form item">
+                    <div class="row">
+                        <div class="col-4">
+                            {{ form.reserve_date | as_crispy_field }}
+                        </div>
+                        <div class="col-4">
+                            {{ form.reserve_time | as_crispy_field }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="management_form text">
+                    {{ form.purpose | as_crispy_field }}
+                </div>
+
+                <button type="submit" class="btn submit">
+                    submit
+                </button>
+
+                <!-- form crispy -->
+{#                {% crispy form form.helper %}#}
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+
+    </div>
+
+{% endblock main %}

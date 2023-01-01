@@ -1,0 +1,69 @@
+{% extends 'management/base.html' %}
+
+{% block main %}
+    <div class="col-md-4">
+        <img src="../../static/img/2.png" width="250" height="400">
+
+        <!-- 分页 -->
+        <div class="pagination-simple">
+            {% if post_list.has_previous %}
+                <a href="?page={{ post_list.previous_page_number }}">上一页</a>
+            {% endif %}
+
+            <span class="current">
+                第 {{ post_list.number }} 页 / 共 {{ post_list.paginator.num_pages }} 页
+            </span>
+
+            {% if post_list.has_next %}
+                <a href="?page={{ post_list.next_page_number }}">下一页</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        {% for post in post_list %}
+            <div class="panel panel-default" style="margin-top: 20px;padding: 20px">
+                <h3 style="text-align: center">
+                    <strong>{{ post.laboratory_name }}</strong>
+                </h3>
+                <p><strong>实验室id: </strong> {{ post.laboratory_id }} </p>
+                <p><strong>位置: </strong> {{ post.area }} </p>
+                <p><strong>楼层: </strong> {{ post.location }} </p>
+                <p><strong>台套数: </strong> {{ post.comp_sets }} </p>
+                <p>
+                    <strong>可用软件: </strong>
+                    {% for software in post.software_list %}
+                        {{ software }}&nbsp;
+                    {% endfor %}
+                </p>
+                <button type="button" style="margin-left: 200px;margin-top: 20px;font-size: 18px;
+                        padding: 10px 10px;border-radius:10px; border-style: none;">
+                    <a href="{% url 'reserve' post.laboratory_name %}">进入预约</a>
+                </button>
+            </div>
+        {% empty %}
+          <div class="no-post">无实验室</div>
+        {% endfor %}
+    </div>
+
+{% endblock main%}
+
+
+<!-- 其它内容 -->
+{#    {% for post in post_list %}#}
+{#        <div class="container-fluid">#}
+{#            <div class="row clearfix">#}
+{#                <div class="col-md-3">#}
+{#                    {{ post.laboratory_name }}#}
+{#                </div>#}
+{#                <div class="col-md-3">#}
+{#                    {{ post.avai_time }}#}
+{#                </div>#}
+{#                <div class="col-md-3">#}
+{#                     button#}
+{#                </div>#}
+{#            </div>#}
+{#         </div>#}
+{#    {% empty %}#}
+{#        <div class="no-post">无</div>#}
+{#    {% endfor %}#}

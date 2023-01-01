@@ -1,0 +1,35 @@
+<!-- extends base template -->
+{% extends 'User/../Share/base.html' %}
+
+<!-- load crispy tags -->
+{% load crispy_forms_tags %}
+
+<!-- title part -->
+{% block title %}
+<title>{{ title }}</title>
+{% endblock %}
+
+<!-- body part -->
+{% block body %}
+<div class="registration-form">
+
+    <!-- csrf token -->
+    {% csrf_token %}
+
+    <!-- form crispy -->
+    {% crispy form form.helper %}
+
+{#    <div class="social-media">#}
+{#        {% if title == 'Login' %}#}
+{#        <h6>Forget#}
+{#            <a href="/account/forget_password/">password?</a>#}
+{#        </h6>#}
+{#        {% elif title == 'Register' %}#}
+{#        <h6>Already hava a accout#}
+{#            <a href="/account/login/">login</a>#}
+{#        </h6>#}
+{#        {% endif %}#}
+{#    </div>#}
+
+</div>
+{% endblock %}

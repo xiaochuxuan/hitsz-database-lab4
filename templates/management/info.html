@@ -1,0 +1,30 @@
+{% extends 'management/base.html' %}
+
+{% block main %}
+    <div class="col-md-4">
+        <img src="../../static/img/2.png" width="250" height="400">
+    </div>
+    <div class="col-md-7">
+        <div class="panel panel-default" style="margin-top: 100px;padding: 20px 20px">
+            {% if user %}
+                <p><strong>用户id</strong>: {{ user.user_id }}</p>
+                <p><strong>用户名</strong>: {{ user.user_name }}</p>
+                <p><strong>用户密码</strong>: {{ user.password }}</p>
+                <p><strong>用户性别</strong>
+                    {% if user.user_sex == 1 %}
+                        : 男
+                    {% else %}
+                        : 女
+                    {% endif %}
+                </p>
+                <p><strong>用户电话</strong>: {{ user.user_phone}}</p>
+            {% else %}
+                <h1 class="entry-title">
+                    您还未登录
+                </h1>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock main %}
